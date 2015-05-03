@@ -77,15 +77,6 @@ public class main {
 	private JPanel panel_5_1;
 	private ButtonGroup bg = new ButtonGroup();
 	
-	
-	
-	
-	
-	//URL icon_pic = this.getClass().getResource("/Resources/icon.png"); //icon pic location
-	//URL logo_pic = this.getClass().getResource("/Resources/logo_005.png"); //icon pic location
-    //ImageIcon logo = new ImageIcon(logo_pic);
-    //ImageIcon icon = new ImageIcon(icon_pic);
-    
 	int ExtraLargeFont = 24, createPasswordStrengthInt = 0;
 	static private final String newline = "\n";
 	JFileChooser fc;
@@ -96,10 +87,8 @@ public class main {
 	private JTextField textField_1;
 	boolean loggedIn = false, checkIfTeacher = false;
 	static int user_ID, course_ID;
-	//ArrayList<String> listCourse = new ArrayList<String>();
 	ArrayList<String> listCourseData = new ArrayList<String>();
 	ArrayList<String> listStudentsOnCourse= new ArrayList<String>();
-	//ArrayList<String> ListAllStudents= new ArrayList<String>();
 	String[] result;
 	JList list_create_course;
 	
@@ -256,7 +245,6 @@ public class main {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				StringCourseSelected = list_create_course.getSelectedValue().toString();
-				//System.out.println(StringCourseSelected);
 				listCourseData.clear();
 				listModel_students_on_course.removeAllElements();
 				getDataCourse(StringCourseSelected);
@@ -291,19 +279,12 @@ public class main {
 		panel_6_4.add(scrollPane_4);
 		scrollPane_4.setViewportView(list_students_on_course);
 		
-		
-		
-		
 		//Jlist to display all students for 6_4 //done
 		final JList list_students_all_students = new JList(listModel_list_all_students);
 		list_students_all_students.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				StringListAllStudentsSelected = list_students_all_students.getSelectedValue().toString();
-				//System.out.println(StringListAllStudentsSelected);
-				
 				findUserID(StringListAllStudentsSelected);
-				//ListAllStudents.clear();
-				//getDataAllStudents();
 			}
 		});
 		JScrollPane scrollPane_5 = new JScrollPane();
@@ -394,11 +375,6 @@ public class main {
 	                		zip_folder.zipFolder(file_locationString, file_locationString_use);
 	                		textAreaLogOffline.append("Turning into .zip: " + file_locationString + newline);
 	                		
-	                		//method for getting the salt login user = user_ID
-	                		//findUserID(text_username_login);
-	                		//getSalt();
-	                		//System.out.println(salt);
-	                		
 	        				encrypt.encryptOffline(password, file_locationString_use);
 	        				textAreaLogOffline.append("Encrypting : " + file_locationString + newline);
 	        				Path path = Paths.get(file_locationString_use);	
@@ -415,15 +391,10 @@ public class main {
 	        				textAreaLogOffline.append("Deleted : " + file_locationString + newline);
 	        			} catch (Exception e) {
 	        				e.printStackTrace();
-	        				//System.out.println(e);
 	        			}	
 	                //if  file
 	                }else if(f.isFile() && returnVal == 0 && password != null){
-	                	//file_locationString_use = file_locationString;
 	                	try {
-	                		//findUserID(text_username_login);
-	                		//getSalt();
-	                		//System.out.println(salt);
 	                		
 	        				encrypt.encryptOffline(password, file_locationString);
 	        				textAreaLogOffline.append("Encrypting : " + file_locationString + newline);
@@ -458,7 +429,6 @@ public class main {
 				
 				
 				
-				
 				//start of descrypt for online
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 	        	int returnVal = fc.showOpenDialog(fc);
@@ -472,11 +442,6 @@ public class main {
 	        		if(returnVal == 0 && password == null){
 	        			password = JOptionPane.showInputDialog ("Enter password: "); 
 	        			file_locationString = file_locationString.replace("\\", "/");
-	        			//System.out.println(file_locationString);
-	        			
-	        			//findUserID(text_username_login);
-                		//getSalt();
-                		//System.out.println(salt);
                 		
 	        			decrypt.decryptOffline(password, file_locationString);
 						textAreaLogOffline.append("Decrypcting : " + file_locationString + newline);
@@ -504,8 +469,6 @@ public class main {
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panel_4_2.setVisible(true);
-				//panel_1.setVisible(false);
-				//panel_2_1.setVisible(false);
 				panel_2_2.setVisible(false);
 			}
 		});
@@ -518,8 +481,6 @@ public class main {
 			public void actionPerformed(ActionEvent arg0) {
 				panel_4_1.setVisible(true);
 				panel_2_2.setVisible(false);
-				
-				
 			}
 		});
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -667,25 +628,19 @@ public class main {
 
 				
 				for(int i = 0; i < 25; i++){
-		            
 		            PointerInfo a = MouseInfo.getPointerInfo();
 		            Point b = a.getLocation();
-		            
 		            int x = (int) b.getX();
 		            int y = (int) b.getY();
-		            
 		            try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-		            
 		            PointerInfo a1 = MouseInfo.getPointerInfo();
 		            Point b1 = a1.getLocation();
-		            
 		            int x1 = (int) b1.getX();
 		            int y1 = (int) b1.getY();
-		             
 		            if(x1 == x && y1 == y){
 		                i = i - 1;
 		            }
@@ -694,7 +649,6 @@ public class main {
 		            	textField_2.setText(salt);
 		            }
 		        }
-
 			}
 		});
 		btnAddSalt.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -974,9 +928,6 @@ public class main {
 		        }
 
 	    				
-	    		//String destDirIV = file_locationString.substring(0,file_locationString.lastIndexOf("/"));
-	    		//System.out.println(destDirIV);
-	    				
 	    		File file = new File(file_locationString_output);
 	    		URL url = null;
 	    		try {
@@ -989,14 +940,10 @@ public class main {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-
 	        			
 	        	findUserID(text_username_login);
 	        	getSaltAndPasswordStudent();
                 System.out.println(saltEncryptStudent);
-                		
-	        	//decrypt.decryptOnlineStudent(passwordEncryptStudent, file_locationString, saltEncryptStudent);
-				//textAreaLogOffline.append("Decrypcting : " + file_locationString + newline);
 	        }
 	        		
 				

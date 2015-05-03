@@ -26,8 +26,6 @@ public class decrypt {
 	static int CIPHER_BITS = 128; //number of bits to encrypt a file. 256 is not possible unless you change some settings 
 	public static void decryptOffline(String password, String file_locationString) throws Exception{
 		
-		//String password = "password123";
-
 		// reading the salt
 		// user should have secure mechanism to transfer the
 		// salt, iv and password to the recipient
@@ -39,9 +37,6 @@ public class decrypt {
 		byte[] saltOffline = new byte[32];
 		saltFis.read(saltOffline);
 		saltFis.close();
-		
-		//String salt1 = "123456789123456789001234567890128375080125092526236236236236236";
-		//byte[] salt2 = salt.getBytes();
 
 		// reading the iv
 		String destDirIV = file_locationString.substring(0,file_locationString.lastIndexOf("/"));
@@ -52,9 +47,6 @@ public class decrypt {
 		byte[] iv = new byte[16];
 		ivFis.read(iv);
 		ivFis.close();
-		
-
-
 		SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 		KeySpec keySpec = new PBEKeySpec(password.toCharArray(), saltOffline, 65536, CIPHER_BITS);
 		SecretKey tmp = factory.generateSecret(keySpec);
@@ -64,7 +56,6 @@ public class decrypt {
 		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 		cipher.init(Cipher.DECRYPT_MODE, secret, new IvParameterSpec(iv));
 		FileInputStream fis = new FileInputStream(file_locationString);
-		
 		
 		//choose file location to save file
 		String file_locationString_output = null;
@@ -79,19 +70,10 @@ public class decrypt {
             
         } else {
         }
-        //System.out.println(file_locationString_output); //extension
-        
-        
-        
         
         String file_locationString_output_noaes = file_locationString_output.replace(".aes", ""); //removes .aes from the end //does not fully work, re work later
-        
-        
 		FileOutputStream fos = new FileOutputStream(file_locationString_output_noaes);
-		
-		
-		
-		
+
 		byte[] in = new byte[64];
 		int read;
 		while ((read = fis.read(in)) != -1) {
@@ -114,7 +96,6 @@ public class decrypt {
 		
 		
 		//unzip file (if it is .zip)
-		
 		String destDir = file_locationString_output_noaes.substring(0,file_locationString_output_noaes.lastIndexOf("/"));
 		System.out.println(destDir);
 		
@@ -136,41 +117,15 @@ public class decrypt {
 			System.out.println("Deleted: " + file_locationString_output_noaes);
 		}
 		else{
-			
 			//does nothing 
-			
-			
 		}
-		
-		
-
-		
-		
-
-	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
 	
 public static void decryptOnlineStudent(String password, String file_locationString, String salt) throws Exception{
 		
-
 		//read the IV and salt 
 		byte[] salt2 = salt.getBytes();
 		String destDirIV = file_locationString.substring(0,file_locationString.lastIndexOf("/"));
@@ -182,7 +137,6 @@ public static void decryptOnlineStudent(String password, String file_locationStr
 		ivFis.read(iv);
 		ivFis.close();
 		
-		
 		// Cipher provides the functionality of a cryptographic cipher for encryption and decryption
 		SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 		KeySpec keySpec = new PBEKeySpec(password.toCharArray(), salt2, 65536, CIPHER_BITS);
@@ -192,7 +146,6 @@ public static void decryptOnlineStudent(String password, String file_locationStr
 		cipher.init(Cipher.DECRYPT_MODE, secret, new IvParameterSpec(iv));
 		FileInputStream fis = new FileInputStream(file_locationString);
 		
-
 		//setting the file location
 		String file_locationString_output = null;
 		final JFileChooser fc = new JFileChooser();
@@ -208,8 +161,6 @@ public static void decryptOnlineStudent(String password, String file_locationStr
         String file_locationString_output_noaes = file_locationString_output.replace(".aes", ""); //removes .aes from the end 
 		FileOutputStream fos = new FileOutputStream(file_locationString_output_noaes);
 		
-		
-		
 		//decrypt file
 		byte[] in = new byte[64];
 		int read;
@@ -218,9 +169,6 @@ public static void decryptOnlineStudent(String password, String file_locationStr
 			if (output != null)
 				fos.write(output);
 		}
-		
-		
-		
 
 		try{
 			byte[] output = cipher.doFinal();
@@ -258,31 +206,7 @@ public static void decryptOnlineStudent(String password, String file_locationStr
 			System.out.println("Deleted: " + file_locationString_output_noaes);
 		}
 		else{
-			
 			//does nothing 
-			
-			
 		}
-		
-		
-
-		
-		
-
-	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
